@@ -5,13 +5,14 @@ import Menu from "./ui/routes/menu/Menu";
 import Cart from "./ui/routes/cart/Cart";
 import NewOrder from "./ui/routes/order/NewOrder";
 import Order from "./ui/routes/order/Order";
-import ErrorPage from "./ui/shared/ErrorPage";
+import ErrorScreen from "./ui/shared/ErrorScreen";
+import { menuLoader } from "./data/loaders/menuLoader";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
-    errorElement: <ErrorPage />,
+    errorElement: <ErrorScreen />,
     children: [
       {
         index: true,
@@ -20,6 +21,7 @@ const router = createBrowserRouter([
       {
         path: "menu",
         element: <Menu />,
+        loader: menuLoader,
       },
       {
         path: "cart",

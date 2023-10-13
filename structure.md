@@ -1,6 +1,6 @@
 # Static UI
 
-# Routes
+## Routes
 
 _Tech_: React Router.
 _Routes_:
@@ -13,18 +13,20 @@ _Routes_:
   - 'order/new' => NewOrder
   - 'order/:id' => Order
 
-# Components
+## Components
 
 _Techs_: Tailwind
 _pages_: Home - Menu - NewOrder - Order
 
 # Data Flow & State Management
 
-## Local Remote States
+## Remote States (local)
 
 _Tech_: React Router.
 _Routes_:
 
+- First Loading
+- 'root' => error screen
 - 'menu' => loader (to GET menu data from API)
 - 'order/new' => action (to POST the new order to API)
 - 'order/:id' => action (to EDIT order priority in API)

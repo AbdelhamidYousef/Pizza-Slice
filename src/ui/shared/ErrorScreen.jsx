@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-const ErrorPage = () => {
+const ErrorScreen = () => {
   const navigate = useNavigate();
 
   return (
@@ -189,4 +189,4 @@ const ErrorPage = () => {
   );
 };
 
-export default ErrorPage;
+export default ErrorScreen;

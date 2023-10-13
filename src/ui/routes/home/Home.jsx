@@ -1,10 +1,7 @@
-import { useNavigate } from "react-router-dom";
 import Button from "../../shared/Button";
 import Input from "../../shared/Input";
 
 const Home = () => {
-  const navigate = useNavigate();
-
   return (
     <section className="mx-auto max-w-3xl">
       <div className="my-10 px-4 text-center sm:my-16">
@@ -24,12 +21,18 @@ const Home = () => {
             👋 Welcome! Please start by telling us your name:
           </label>
 
-          <Input type="text" id="username" placeholder="Your Full Name" />
+          <Input
+            type="text"
+            id="username"
+            placeholder="Your Full Name"
+            required={false}
+          />
 
           <Button
-            onClick={() => navigate("/menu")}
+            type="link"
+            to="menu"
             size="lg"
-            className="!block !mx-auto"
+            className="!block !mx-auto w-fit"
           >
             Start ordering
           </Button>
