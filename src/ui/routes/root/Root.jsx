@@ -1,17 +1,19 @@
 import { Outlet } from "react-router-dom";
+import Header from "./Header";
+import Main from "./Main";
+import Footer from "./Footer";
 
 const Root = () => {
   return (
-    <>
-      <header>Header</header>
-      <main>
+    <div className="grid h-screen grid-rows-[auto_1fr_auto]">
+      <Header />
+
+      <Main>
         <Outlet />
-      </main>
+      </Main>
 
-      {/* <main>{Outlet}</main> */}
-
-      <footer>footer</footer>
-    </>
+      <Footer />
+    </div>
   );
 };
 
