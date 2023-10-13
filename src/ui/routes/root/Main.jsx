@@ -1,6 +1,6 @@
 import { PropTypes } from "prop-types";
 const Main = ({ children }) => {
-  return <main className="overflow-scroll">{children}</main>;
+  return <main className="overflow-scroll relative">{children}</main>;
 };
 
 Main.propTypes = {

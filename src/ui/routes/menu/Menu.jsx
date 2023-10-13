@@ -1,17 +1,8 @@
-import { useLoaderData, useNavigation } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import MenuItem from "./MenuItem";
-import { useEffect } from "react";
-import LoadingScreen from "../../shared/LoadingScreen";
 
 const Menu = () => {
   const { data: menu } = useLoaderData();
-  // const status = useNavigation().state;
-
-  // useEffect(() => {
-  //   console.log(status);
-  // }, [status]);
-
-  // if (status === "loading") return <div>loading</div>;
 
   return (
     <section className="mx-auto max-w-3xl">
