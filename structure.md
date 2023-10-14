@@ -25,7 +25,7 @@ _pages_: Home - Menu - NewOrder - Order
 _Tech_: React Router.
 _Routes_:
 
-- Root => loading & error screen.
+- Root => loading & error screen + loading for loaders.
 - Menu => loader (to GET menu data from API) - loading - error handling
 - 'order/new' => action (to POST the new order to API)
 - 'order/:id' => action (to EDIT order priority in API)

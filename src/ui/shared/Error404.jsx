@@ -1,6 +1,6 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-const ErrorScreen = () => {
+const Error404 = () => {
   const navigate = useNavigate();
 
   return (
@@ -165,28 +165,52 @@ const ErrorScreen = () => {
           Sorry, the page you are looking for could not be found.
         </p>
 
-        <button
-          onClick={() => navigate(-1)}
-          className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-gray-100 px-4 py-2 mt-12 rounded transition duration-150"
-          title="Return Home"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5"
-            viewBox="0 0 20 20"
-            fill="currentColor"
+        <div className="mt-8 w-full flex flex-col items-center gap-y-3 sm:flex-row sm:justify-center sm:gap-x-8">
+          <button
+            onClick={() => navigate(-1)}
+            className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-gray-100 px-4 py-2 rounded transition duration-150"
+            title="Return Back"
           >
-            <path
-              fillRule="evenodd"
-              d="M9.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L7.414 9H15a1 1 0 110 2H7.414l2.293 2.293a1 1 0 010 1.414z"
-              clipRule="evenodd"
-            ></path>
-          </svg>
-          <span>Return Home</span>
-        </button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fillRule="evenodd"
+                d="M9.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L7.414 9H15a1 1 0 110 2H7.414l2.293 2.293a1 1 0 010 1.414z"
+                clipRule="evenodd"
+              ></path>
+            </svg>
+            <span>Return Back</span>
+          </button>
+
+          <Link
+            to="/"
+            title="Go Home"
+            className="flex items-center space-x-2 bg-emerald-600 hover:bg-emerald-700 text-gray-100 px-4 py-2 rounded transition duration-150"
+          >
+            <span>Go Home</span>
+
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              transform="rotate(180)"
+            >
+              <path
+                fillRule="evenodd"
+                d="M9.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L7.414 9H15a1 1 0 110 2H7.414l2.293 2.293a1 1 0 010 1.414z"
+                clipRule="evenodd"
+              ></path>
+            </svg>
+          </Link>
+        </div>
       </div>
     </div>
   );
 };
 
-export default ErrorScreen;
+export default Error404;

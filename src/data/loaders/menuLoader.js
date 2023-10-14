@@ -4,9 +4,10 @@ export const menuLoader = async () => {
   const response = await fetch(`${API_URL}/menu`);
   const data = await response.json();
 
-  if (!response.ok) throw Error("Failed getting menu");
-
-  console.log(data);
+  if (!response.ok)
+    throw new Error(
+      `There is something wrong with the server (server responded with: ${data.message})`
+    );
 
   return data;
 };
