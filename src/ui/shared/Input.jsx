@@ -7,7 +7,7 @@ const Input = ({
   placeholder,
   value,
   onChange,
-  required = true,
+  required = false,
   disabled,
   className,
 }) => {

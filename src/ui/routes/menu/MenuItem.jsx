@@ -1,5 +1,5 @@
 import { PropTypes } from "prop-types";
-import { fromateCurrency } from "../../../helper";
+import { formatCurrency } from "../../../helpers";
 import Button from "../../shared/Button";
 
 const MenuItem = ({ pizza }) => {
@@ -23,7 +23,7 @@ const MenuItem = ({ pizza }) => {
               soldOut ? "font-medium uppercase text-stone-500" : ""
             } text-sm`}
           >
-            {soldOut ? "Sold Out" : fromateCurrency(unitPrice)}
+            {soldOut ? "Sold Out" : formatCurrency(unitPrice)}
           </p>
 
           <Button size="md">Add to cart</Button>

@@ -7,6 +7,10 @@ export default {
     },
 
     extend: {
+      screens: {
+        xs: "400px",
+      },
+
       height: {
         screen: "100dvh",
       },

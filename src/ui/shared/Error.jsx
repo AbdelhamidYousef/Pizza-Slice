@@ -5,7 +5,7 @@ import ErrorMessage from "./ErrorMessage";
 const Error = () => {
   const error = useRouteError();
 
-  console.log("🎈🎈🎈🎈", error.message, error.data);
+  console.error("❌", error);
 
   if (error.status) return <Error404 />;
 
@@ -13,7 +13,7 @@ const Error = () => {
     return (
       <ErrorMessage
         error={
-          "There is something wrong with the server, Please try again later"
+          "Something went wrong. Please check your internet connection and try again or contact support"
         }
       />
     );

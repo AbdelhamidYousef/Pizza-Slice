@@ -2,7 +2,7 @@ import { useLoaderData } from "react-router-dom";
 import MenuItem from "./MenuItem";
 
 const Menu = () => {
-  const { data: menu } = useLoaderData();
+  const menu = useLoaderData();
 
   return (
     <section className="mx-auto max-w-3xl">

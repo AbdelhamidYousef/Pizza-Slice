@@ -1,48 +1,88 @@
+import { useEffect } from "react";
+import { useFetcher, useLoaderData } from "react-router-dom";
+import { calcMinutesLeft, formatDate, formatCurrency } from "../../../helpers";
+import OrderItem from "./OrderItem";
+import Button from "../../shared/Button";
+
 const Order = () => {
+  const order = useLoaderData();
+  const fetcher = useFetcher();
+
+  useEffect(() => {
+    if (!fetcher.data && fetcher.state === "idle") fetcher.load("/menu");
+  }, [fetcher]);
+
+  const {
+    id,
+    status,
+    priority,
+    priorityPrice,
+    orderPrice,
+    estimatedDelivery,
+    cart,
+  } = order;
+  const deliveryIn = calcMinutesLeft(estimatedDelivery);
+
   return (
     <section className="mx-auto max-w-3xl space-y-8 px-4 py-6">
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <h2 className="text-xl font-semibold">Order #7F9S3U status</h2>
+        <h2 className="text-xl font-semibold">Order #{id} status</h2>
         <div className="space-x-2">
-          <span className="rounded-full bg-red-500 px-3 py-1 text-sm font-semibold uppercase tracking-wide text-red-50">
-            Priority
-          </span>
+          {priority && (
+            <span className="rounded-full bg-red-500 px-3 py-1 text-sm font-semibold uppercase tracking-wide text-red-50">
+              Priority
+            </span>
+          )}
           <span className="rounded-full bg-green-500 px-3 py-1 text-sm font-semibold uppercase tracking-wide text-green-50">
-            preparing order
+            {status} order
           </span>
         </div>
       </div>
 
       <div className="flex flex-wrap items-center justify-between gap-2 bg-stone-200 px-6 py-5">
-        <p className="font-medium">Only 46 minutes left 😃</p>
+        <p className="font-medium">
+          {deliveryIn >= 0
+            ? `Only ${deliveryIn} minutes left 😃`
+            : "Order should have arrived"}
+        </p>
         <p className="text-xs text-stone-500">
-          (Estimated delivery: Oct 13, 07:44 AM)
+          (Estimated delivery: {formatDate(estimatedDelivery)})
         </p>
       </div>
 
       <ul className="dive-stone-200 divide-y border-b border-t">
-        <li className="space-y-1 py-3">
-          <div className="flex items-center justify-between gap-4 text-sm">
-            <p>
-              <span className="font-bold">1×</span> Romana
-            </p>
-            <p className="font-bold">€15.00</p>
-          </div>
-          <p className="text-sm capitalize italic text-stone-500">
-            tomato, mozzarella, prosciutto
-          </p>
-        </li>
+        {cart.map((item) => (
+          <OrderItem
+            key={item.pizzaId}
+            item={item}
+            isLoadingIngredients={fetcher.state === "loading"}
+            ingredients={
+              fetcher?.data?.find((el) => el.id === item.pizzaId)
+                ?.ingredients ?? []
+            }
+          />
+        ))}
       </ul>
 
       <div className="space-y-2 bg-stone-200 px-6 py-5">
         <p className="text-sm font-medium text-stone-600">
-          Price pizza: €15.00
+          Price pizza: {formatCurrency(orderPrice)}
         </p>
-        <p className="text-sm font-medium text-stone-600">
-          Price priority: €3.00
+        {priority && (
+          <p className="text-sm font-medium text-stone-600">
+            Price priority: {formatCurrency(priorityPrice)}
+          </p>
+        )}
+        <p className="font-bold">
+          To pay on delivery: {formatCurrency(orderPrice + priorityPrice)}
         </p>
-        <p className="font-bold">To pay on delivery: €18.00</p>
       </div>
+
+      {!priority && (
+        <fetcher.Form method="PATCH" className="text-right">
+          <Button size="lg">Make priority</Button>
+        </fetcher.Form>
+      )}
     </section>
   );
 };
