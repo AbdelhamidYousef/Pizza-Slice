@@ -4,9 +4,17 @@ import EmptyCart from "./EmptyCart";
 import CartItem from "./CartItem";
 import Button from "../../shared/Button";
 import { getUsername } from "../../../data/slices/userSlice";
-import { clearCart, getCart } from "../../../data/slices/cartSlice";
+import {
+  clearCart,
+  getCart,
+  getCartQuantity,
+} from "../../../data/slices/cartSlice";
+import useTitle from "../../../helpers/useTitle";
 
 const Cart = () => {
+  const cartQuantity = `${useSelector(getCartQuantity)} PIZZAS` || "Empty";
+  useTitle(`Cart | ${cartQuantity}`);
+
   const username = useSelector(getUsername);
   const cart = useSelector(getCart);
   const dispatch = useDispatch();

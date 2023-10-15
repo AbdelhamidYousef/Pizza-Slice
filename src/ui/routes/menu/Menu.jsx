@@ -1,8 +1,10 @@
 import { useLoaderData } from "react-router-dom";
 import MenuItem from "./MenuItem";
+import useTitle from "../../../helpers/useTitle";
 
 const Menu = () => {
   const menu = useLoaderData();
+  useTitle("Menu | Pizza Slice");
 
   return (
     <section className="mx-auto max-w-4xl">

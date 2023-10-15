@@ -3,8 +3,11 @@ import { useFetcher, useLoaderData } from "react-router-dom";
 import { calcMinutesLeft, formatDate, formatCurrency } from "../../../helpers";
 import OrderItem from "./OrderItem";
 import Button from "../../shared/Button";
+import useTitle from "../../../helpers/useTitle";
 
 const Order = () => {
+  useTitle("Pizza Slice | Faster Than Light");
+
   const order = useLoaderData();
   const fetcher = useFetcher();
 

@@ -9,8 +9,11 @@ import { useSelector } from "react-redux";
 import { getCart, getCartPrice } from "../../../data/slices/cartSlice";
 import { fetchAddress, getUser } from "../../../data/slices/userSlice";
 import { formatCurrency } from "../../../helpers";
+import useTitle from "../../../helpers/useTitle";
 
 const NewOrder = () => {
+  useTitle("Order Now | Pizza Slice");
+
   // Local States
   const [withPriority, setWithPriority] = useState(false);
 
