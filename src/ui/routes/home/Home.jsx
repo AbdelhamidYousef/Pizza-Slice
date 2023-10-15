@@ -1,7 +1,11 @@
-import Button from "../../shared/Button";
-import Input from "../../shared/Input";
+import { useSelector } from "react-redux";
+import UserForm from "./UserForm";
+import { getUsername } from "../../../data/slices/userSlice";
+import User from "./User";
 
 const Home = () => {
+  const username = useSelector(getUsername);
+
   return (
     <section className="mx-auto max-w-3xl">
       <div className="my-10 px-4 text-center sm:my-16">
@@ -13,30 +17,7 @@ const Home = () => {
           </span>
         </h1>
 
-        <form>
-          <label
-            htmlFor="username"
-            className="mb-4 text-sm text-stone-600 md:text-base"
-          >
-            👋 Welcome! Please start by telling us your name:
-          </label>
-
-          <Input
-            type="text"
-            id="username"
-            placeholder="Your Full Name"
-            required={false}
-          />
-
-          <Button
-            type="link"
-            to="menu"
-            size="lg"
-            className="!block !mx-auto w-fit"
-          >
-            Start ordering
-          </Button>
-        </form>
+        {username ? <User /> : <UserForm />}
       </div>
     </section>
   );

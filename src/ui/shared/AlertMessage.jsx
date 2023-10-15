@@ -1,11 +1,11 @@
 import { PropTypes } from "prop-types";
 
-const AlertMessage = ({ style, children }) => {
+const AlertMessage = ({ style, className, children }) => {
   return (
     <div
       className={`${
         style === "full" ? "justify-center text-center text-red-500" : ""
-      } flex items-center p-2 text-sm text-red-400`}
+      } ${className} flex items-center p-2 text-sm text-red-400`}
       role="alert"
     >
       <svg
@@ -41,6 +41,7 @@ const AlertMessage = ({ style, children }) => {
 
 AlertMessage.propTypes = {
   style: PropTypes.string,
+  className: PropTypes.string,
   children: PropTypes.node.isRequired,
 };
 

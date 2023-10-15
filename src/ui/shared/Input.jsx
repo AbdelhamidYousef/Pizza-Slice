@@ -5,6 +5,7 @@ const Input = ({
   name,
   id = name,
   placeholder,
+  defaultValue,
   value,
   onChange,
   required = false,
@@ -17,6 +18,7 @@ const Input = ({
       id={id}
       name={name}
       placeholder={placeholder}
+      defaultValue={defaultValue}
       value={value}
       onChange={onChange}
       required={required}
@@ -31,6 +33,7 @@ Input.propTypes = {
   id: PropTypes.string,
   name: PropTypes.string,
   placeholder: PropTypes.string,
+  defaultValue: PropTypes.string,
   value: PropTypes.string,
   onChange: PropTypes.func,
   required: PropTypes.bool,

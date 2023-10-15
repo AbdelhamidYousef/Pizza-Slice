@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Outlet, useNavigation } from "react-router-dom";
 import Header from "./Header";
 import Main from "./Main";
@@ -7,9 +7,12 @@ import LoadingScreen from "../../shared/LoadingScreen";
 
 const Root = () => {
   const [firstLoading, setFirstLoading] = useState(true);
-  setTimeout(() => setFirstLoading(false), 1000);
-
   const isLoading = useNavigation().state === "loading";
+
+  useEffect(() => {
+    const timer = setTimeout(() => setFirstLoading(false), 500);
+    return () => clearTimeout(timer);
+  }, []);
 
   if (firstLoading) return <LoadingScreen />;
   return (

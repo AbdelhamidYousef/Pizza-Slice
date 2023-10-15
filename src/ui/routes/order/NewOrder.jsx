@@ -1,16 +1,39 @@
+import { useState } from "react";
 import { Form, useActionData, useNavigation } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import EmptyCart from "../cart/EmptyCart";
 import Button from "../../shared/Button";
 import Input from "../../shared/Input";
 import AlertMessage from "../../shared/AlertMessage";
-
-const cart = [
-  { pizzaId: 3, name: "Romana", quantity: 1, unitPrice: 15, totalPrice: 15 },
-];
+import { useSelector } from "react-redux";
+import { getCart, getCartPrice } from "../../../data/slices/cartSlice";
+import { fetchAddress, getUser } from "../../../data/slices/userSlice";
+import { formatCurrency } from "../../../helpers";
 
 const NewOrder = () => {
+  // Local States
+  const [withPriority, setWithPriority] = useState(false);
+
+  // Route Action States
   const errors = useActionData();
   const isSubmitting = useNavigation().state === "submitting";
+  const cart = useSelector(getCart);
 
+  // Global UI States
+  const {
+    username,
+    status: addressStatus,
+    position,
+    address,
+    error: errorAddress,
+  } = useSelector(getUser);
+
+  const totalCartPrice = useSelector(getCartPrice);
+  const totalPrice = withPriority ? totalCartPrice * 1.2 : totalCartPrice;
+
+  const dispatch = useDispatch();
+
+  if (!cart.length) return <EmptyCart />;
   return (
     <section className="mx-auto max-w-3xl">
       <div className="px-4 py-6">
@@ -26,12 +49,14 @@ const NewOrder = () => {
 
             <div className="w-full">
               <Input
+                type="text"
                 name="customer"
                 placeholder="Enter Your Name"
+                defaultValue={username}
                 className="w-full !m-0"
               />
-              {errors?.username && (
-                <AlertMessage>{errors.username}</AlertMessage>
+              {errors?.customer && (
+                <AlertMessage>{errors.customer}</AlertMessage>
               )}
             </div>
           </div>
@@ -59,16 +84,33 @@ const NewOrder = () => {
 
             <div className="w-full">
               <div className="relative w-full">
-                <Input
+                <input
+                  type="text"
+                  id="address"
                   name="address"
                   placeholder="Enter Your Address"
-                  className="w-full !m-0"
+                  defaultValue={address}
+                  required={true}
+                  disabled={addressStatus === "loading"}
+                  className="w-full !m-0 rounded-full border border-stone-200 px-4 py-2 text-sm transition-all duration-300 placeholder:text-stone-400 focus:outline-none focus:ring focus:ring-yellow-400 md:px-6 md:py-3 mb-8"
                 />
-                <span className="absolute right-[3px] md:right-1.5 top-1/2 -translate-y-1/2 z-10">
-                  <Button size="md" className="!text-xs">
-                    Get position
-                  </Button>
-                </span>
+
+                {addressStatus === "error" && (
+                  <AlertMessage>{errorAddress}</AlertMessage>
+                )}
+
+                {!address && addressStatus !== "error" && (
+                  <span className="absolute right-[3px] md:right-1.5 top-1/2 -translate-y-1/2 z-10">
+                    <Button
+                      type="button"
+                      onClick={() => dispatch(fetchAddress())}
+                      size="md"
+                      className="!text-xs"
+                    >
+                      Get position
+                    </Button>
+                  </span>
+                )}
               </div>
 
               {errors?.address && <AlertMessage>{errors.address}</AlertMessage>}
@@ -80,6 +122,8 @@ const NewOrder = () => {
               type="checkbox"
               name="priority"
               id="priority"
+              value={withPriority}
+              onChange={(e) => setWithPriority(e.target.checked)}
               className="h-6 w-6 accent-yellow-400 focus:outline-none focus:ring focus:ring-yellow-400 focus:ring-offset-2 cursor-pointer"
             />
             <label htmlFor="priority" className="font-medium">
@@ -92,7 +136,11 @@ const NewOrder = () => {
             <input
               type="hidden"
               name="position"
-              value="30.1248866,31.2726856"
+              value={
+                position.longitude && position.latitude
+                  ? `${position.latitude},${position.longitude}`
+                  : ""
+              }
             />
 
             {errors?.cart && (
@@ -103,8 +151,14 @@ const NewOrder = () => {
             )}
           </div>
 
-          <Button size="lg" className="mt-10">
-            {isSubmitting ? "Submitting Order..." : "Order Now"}
+          <Button
+            disabled={isSubmitting || addressStatus === "loading"}
+            size="lg"
+            className="mt-10"
+          >
+            {isSubmitting
+              ? "Placing order...."
+              : `Order now from ${formatCurrency(totalPrice)}`}
           </Button>
         </Form>
       </div>
