@@ -1,4 +1,4 @@
-# PizzaSclice
+# PizzaSlice
 
 This is a demo of an online pizza restaurant website built with React, React Router, Redux Toolkit, Tailwindcss, Vite, and EsLint.
 
